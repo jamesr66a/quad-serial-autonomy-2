@@ -12,15 +12,6 @@ void term_handler(int signal)
 	exit(-1);
 }
 
-void create_pwm_array(int pins[], size_t arr_len, int init, int range)
-{
-	size_t i;
-	for (i=0; i<arr_len; i++)
-	{
-		create_pwm_pin(pins[i], init, range);
-	}
-}
-
 void create_pwm_pin(int pin, int init, int range)
 {
 	char buf[100];
@@ -33,6 +24,15 @@ void create_pwm_pin(int pin, int init, int range)
 			pin, errno);
 		perror(buf);
 		exit(-1);
+	}
+}
+
+void create_pwm_array(int pins[], size_t arr_len, int init, int range)
+{
+	size_t i;
+	for (i=0; i<arr_len; i++)
+	{
+		create_pwm_pin(pins[i], init, range);
 	}
 }
 
