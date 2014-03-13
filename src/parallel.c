@@ -12,6 +12,8 @@ void term_handler(int signal)
 	exit(-1);
 }
 
+/* create a single pwm pin instance with the specified
+ * initial value and range. Handle errors and exit */
 void create_pwm_pin(int pin, int init, int range)
 {
 	char buf[100];
@@ -27,6 +29,8 @@ void create_pwm_pin(int pin, int init, int range)
 	}
 }
 
+/* Create pwm pins contained within the passed-in array.
+ * Takes initial value and range arguments also */
 void create_pwm_array(int pins[], size_t arr_len, int init, int range)
 {
 	size_t i;
@@ -36,6 +40,7 @@ void create_pwm_array(int pins[], size_t arr_len, int init, int range)
 	}
 }
 
+/* Constant values for the sweep behavior  */
 static const unsigned int MIN = 0;
 static const unsigned int MAX = 100;
 static const unsigned int PERIOD = 10000;
@@ -53,10 +58,13 @@ int main()
 	/* setup wiringPi interface*/
 	wiringPiSetup();
 
+	/* array of pins to write to */
 	int pins[5] = {1, 2, 3, 4, 5};
-
+	
+	/* open pwm pins */
 	create_pwm_array(pins, 5, 0, 100);
 
+	/* fade value in and out for every pwm pin */
 	while (1)
 	{
 		for (counter = MIN; counter < MAX; counter++)
